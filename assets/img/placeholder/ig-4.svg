@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-label="Espaco reservado para fotografia: INSTAGRAM 04">
+  <rect width="800" height="800" fill="#E7E1D6"/>
+  <g fill="none" stroke="#14100D" stroke-opacity=".13" stroke-width="2">
+    <path d="M0 400 H800 M400 0 V800"/>
+  </g>
+  <g fill="none" stroke="#14100D" stroke-opacity=".35" stroke-width="3">
+    <path d="M50 20 V50 H20 M750 20 V50 H780 M50 780 V750 H20 M750 780 V750 H780"/>
+  </g>
+  <circle cx="400" cy="400" r="133" fill="none" stroke="#EE7623" stroke-width="3"/>
+  <circle cx="400" cy="400" r="122" fill="none" stroke="#EE7623" stroke-opacity=".35" stroke-width="2"/>
+  <text x="400" y="579" text-anchor="middle" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="26" font-weight="600" letter-spacing="4" fill="#14100D">INSTAGRAM 04</text>
+  <text x="400" y="609" text-anchor="middle" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="18" letter-spacing="0" fill="#14100D" fill-opacity=".55">Post real do @opticasepya</text>
+  <text x="50" y="750" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="15" letter-spacing="1" fill="#14100D" fill-opacity=".4">SEPYA / 800 x 800</text>
+</svg>

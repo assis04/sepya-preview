@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1200" role="img" aria-label="Espaco reservado para fotografia: RETRATO PRINCIPAL">
+  <rect width="900" height="1200" fill="#E7E1D6"/>
+  <g fill="none" stroke="#14100D" stroke-opacity=".13" stroke-width="2">
+    <path d="M0 600 H900 M450 0 V1200"/>
+  </g>
+  <g fill="none" stroke="#14100D" stroke-opacity=".35" stroke-width="3">
+    <path d="M56 22 V56 H22 M844 22 V56 H878 M56 1178 V1144 H22 M844 1178 V1144 H878"/>
+  </g>
+  <circle cx="450" cy="600" r="150" fill="none" stroke="#EE7623" stroke-width="4"/>
+  <circle cx="450" cy="600" r="138" fill="none" stroke="#EE7623" stroke-opacity=".35" stroke-width="2"/>
+  <text x="450" y="804" text-anchor="middle" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="30" font-weight="600" letter-spacing="5" fill="#14100D">RETRATO PRINCIPAL</text>
+  <text x="450" y="839" text-anchor="middle" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="21" letter-spacing="0" fill="#14100D" fill-opacity=".55">Cliente usando armacao, luz natural, dentro da loja</text>
+  <text x="56" y="1144" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="18" letter-spacing="2" fill="#14100D" fill-opacity=".4">SEPYA / 900 x 1200</text>
+</svg>

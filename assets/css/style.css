@@ -1,0 +1,1113 @@
+/* =========================================================================
+   ÓPTICA SÉPYA — SISTEMA VISUAL
+   -------------------------------------------------------------------------
+   Direção: editorial quente / oficina óptica.
+   Base papel, tinta quase preta, laranja Sépya como único acento.
+   Motivo gráfico: a lente — anéis, fios finos, marcas de corte e numerais
+   técnicos, como a diagramação de uma receita óptica.
+   ========================================================================= */
+
+/* -------------------------------------------------------------------------
+   1. TOKENS
+   ------------------------------------------------------------------------- */
+:root {
+  /* Cor ------------------------------------------------------------------ */
+  --papel:            #EFEAE1;   /* fundo principal                         */
+  --papel-alto:       #F7F4EF;   /* superfícies elevadas, header            */
+  --papel-fundo:      #E7E1D6;   /* recuos, molduras de foto                */
+  --tinta:            #14100D;   /* texto principal / seção escura          */
+  --tinta-media:      #554C43;   /* texto de apoio                          */
+  --tinta-fraca:      #665C52;   /* rótulos, legendas — 5,4:1 sobre papel    */
+  --laranja:          #EE7623;   /* acento da marca                         */
+  --laranja-escuro:   #C4560F;   /* hover / pressed                         */
+  --laranja-lavado:   #F8DEC6;   /* tinta clara, realces                    */
+  --linha:            rgba(20, 16, 13, .14);
+  --linha-forte:      rgba(20, 16, 13, .30);
+  --linha-clara:      rgba(239, 234, 225, .22);
+
+  /* Tipografia ----------------------------------------------------------- */
+  --fonte-titulo: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --fonte-texto:  "Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  --t-mega:   clamp(2.75rem, 7.4vw, 6.5rem);
+  --t-titulo: clamp(2.05rem, 4.6vw, 3.9rem);
+  --t-sub:    clamp(1.5rem, 2.6vw, 2.15rem);
+  --t-lead:   clamp(1.05rem, 1.35vw, 1.25rem);
+  --t-corpo:  1rem;
+  --t-menor:  .875rem;
+  --t-rotulo: .6875rem;
+
+  /* Espaço --------------------------------------------------------------- */
+  --e-1: .25rem;  --e-2: .5rem;   --e-3: .75rem;  --e-4: 1rem;
+  --e-5: 1.5rem;  --e-6: 2rem;    --e-7: 3rem;    --e-8: 4rem;
+  --e-9: 6rem;    --e-10: 8rem;
+  --secao-y: clamp(4.5rem, 9vw, 8.5rem);
+  --margem:  clamp(1.25rem, 4.5vw, 4.5rem);
+  --largura: 1380px;
+
+  /* Forma ---------------------------------------------------------------- */
+  --r-0: 0;
+  --r-1: 2px;
+  --r-lente: 999px;
+  --sombra-flutuante: 0 8px 28px rgba(20, 16, 13, .16), 0 2px 6px rgba(20, 16, 13, .10);
+
+  /* Movimento ------------------------------------------------------------ */
+  --t-rapida: 180ms cubic-bezier(.22, .61, .21, 1);
+  --t-media:  420ms cubic-bezier(.22, .61, .21, 1);
+  --t-lenta:  760ms cubic-bezier(.22, .61, .21, 1);
+
+  /* Breakpoints (referência; CSS não aceita var em media query)
+     xs 480 · sm 640 · md 860 · lg 1080 · xl 1280                           */
+}
+
+/* -------------------------------------------------------------------------
+   2. RESET
+   ------------------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+}
+
+body {
+  margin: 0;
+  background: var(--papel);
+  color: var(--tinta);
+  font-family: var(--fonte-texto);
+  font-size: var(--t-corpo);
+  line-height: 1.62;
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+body.trava-scroll { overflow: hidden; }
+
+h1, h2, h3, h4, p, figure, blockquote, ul, ol, dl, dd { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+img, svg, picture { display: block; max-width: 100%; }
+img { height: auto; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+address { font-style: normal; }
+
+:focus-visible {
+  outline: 2px solid var(--laranja);
+  outline-offset: 3px;
+  border-radius: var(--r-1);
+}
+
+::selection { background: var(--laranja); color: #fff; }
+
+/* -------------------------------------------------------------------------
+   3. TIPOGRAFIA
+   ------------------------------------------------------------------------- */
+.titulo-mega, .titulo, .subtitulo {
+  font-family: var(--fonte-titulo);
+  font-weight: 400;
+  font-variation-settings: "SOFT" 20, "WONK" 1, "opsz" 120;
+  letter-spacing: -.022em;
+  line-height: 1.04;
+  text-wrap: balance;
+}
+
+.titulo-mega { font-size: var(--t-mega); }
+.titulo      { font-size: var(--t-titulo); line-height: 1.07; }
+.subtitulo   { font-size: var(--t-sub); line-height: 1.16; letter-spacing: -.015em; }
+
+.titulo-mega em, .titulo em, .subtitulo em {
+  font-style: italic;
+  font-variation-settings: "SOFT" 60, "WONK" 1, "opsz" 120;
+  color: var(--laranja);
+}
+
+/* Rótulo técnico — ecoa o ÓPTICA / RELOJOARIA do logotipo */
+.rotulo {
+  font-size: var(--t-rotulo);
+  font-weight: 600;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--tinta-fraca);
+  display: flex;
+  align-items: center;
+  gap: var(--e-3);
+}
+
+.rotulo::before {
+  content: "";
+  width: 1.75rem;
+  height: 1px;
+  background: var(--laranja);
+  flex: none;
+}
+
+.rotulo--nu::before { display: none; }
+.rotulo--claro { color: rgba(239, 234, 225, .66); }
+
+.lead {
+  font-size: var(--t-lead);
+  line-height: 1.58;
+  color: var(--tinta-media);
+  max-width: 48ch;
+  text-wrap: pretty;
+}
+
+.texto { color: var(--tinta-media); max-width: 62ch; text-wrap: pretty; }
+.texto + .texto { margin-top: var(--e-4); }
+
+.numeral {
+  font-weight: 600;
+  font-size: var(--t-rotulo);
+  letter-spacing: .16em;
+  color: var(--laranja);
+  font-variant-numeric: tabular-nums;
+}
+
+/* -------------------------------------------------------------------------
+   4. LAYOUT
+   ------------------------------------------------------------------------- */
+.envoltorio {
+  width: 100%;
+  max-width: var(--largura);
+  margin-inline: auto;
+  padding-inline: var(--margem);
+}
+
+.secao { padding-block: var(--secao-y); position: relative; }
+.secao--compacta { padding-block: clamp(3rem, 6vw, 5.5rem); }
+.secao--fio-topo { border-top: 1px solid var(--linha); }
+
+.secao__cabeca {
+  display: grid;
+  gap: var(--e-5);
+  margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+@media (min-width: 860px) {
+  .secao__cabeca {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    align-items: end;
+    gap: var(--e-8);
+  }
+}
+
+.fio { height: 1px; background: var(--linha); border: 0; margin: 0; }
+.secao__titulo { margin-top: var(--e-4); }
+
+/* -------------------------------------------------------------------------
+   5. FOTOGRAFIA
+   Toda foto vive dentro de .foto, que reserva a proporção.
+   Trocar a imagem é trocar o src — o layout não se move.
+   ------------------------------------------------------------------------- */
+.foto {
+  position: relative;
+  overflow: hidden;
+  background: var(--papel-fundo);
+}
+
+.foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--t-lenta);
+}
+
+.foto--3x4  { aspect-ratio: 3 / 4; }
+.foto--4x5  { aspect-ratio: 4 / 5; }
+.foto--1x1  { aspect-ratio: 1 / 1; }
+.foto--4x3  { aspect-ratio: 4 / 3; }
+.foto--16x9 { aspect-ratio: 16 / 9; }
+.foto--8x5  { aspect-ratio: 8 / 5; }
+.foto--lente { border-radius: var(--r-lente); }
+
+.foto__etiqueta {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background: var(--papel-alto);
+  color: var(--tinta);
+  font-size: var(--t-rotulo);
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  padding: .5rem .9rem;
+}
+
+/* -------------------------------------------------------------------------
+   6. BOTÕES E LINKS
+   ------------------------------------------------------------------------- */
+.botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .6rem;
+  padding: .9rem 1.5rem;
+  border-radius: var(--r-1);
+  font-size: var(--t-menor);
+  font-weight: 600;
+  letter-spacing: .04em;
+  line-height: 1;
+  border: 1px solid transparent;
+  transition: background-color var(--t-rapida), color var(--t-rapida),
+              border-color var(--t-rapida), transform var(--t-rapida);
+  white-space: nowrap;
+}
+
+.botao:active { transform: translateY(1px); }
+.botao svg { width: 1.05em; height: 1.05em; flex: none; }
+
+.botao--principal { background: var(--laranja); color: #fff; }
+.botao--principal:hover { background: var(--laranja-escuro); }
+
+.botao--contorno { border-color: var(--linha-forte); color: var(--tinta); }
+.botao--contorno:hover { border-color: var(--tinta); background: var(--tinta); color: var(--papel); }
+
+.botao--tinta { background: var(--tinta); color: var(--papel); }
+.botao--tinta:hover { background: var(--laranja); color: #fff; }
+
+.botao--claro { background: var(--papel-alto); color: var(--tinta); }
+.botao--claro:hover { background: #fff; }
+
+.botao--fantasma-claro { border-color: var(--linha-clara); color: var(--papel); }
+.botao--fantasma-claro:hover { background: var(--papel); color: var(--tinta); }
+
+.botao--pequeno { padding: .68rem 1.1rem; }
+
+.botao[aria-disabled="true"] { opacity: .42; pointer-events: none; }
+.botao[hidden] { display: none; }
+
+.link-fio {
+  display: inline-flex;
+  align-items: center;
+  gap: .55rem;
+  font-size: var(--t-menor);
+  font-weight: 600;
+  letter-spacing: .04em;
+  padding-bottom: .35rem;
+  border-bottom: 1px solid var(--linha-forte);
+  transition: border-color var(--t-rapida), color var(--t-rapida), gap var(--t-rapida);
+}
+
+.link-fio:hover { color: var(--laranja); border-color: var(--laranja); gap: .85rem; }
+.link-fio svg { width: .75em; height: .75em; flex: none; }
+
+/* -------------------------------------------------------------------------
+   7. ACESSIBILIDADE
+   ------------------------------------------------------------------------- */
+.pular-link {
+  position: absolute;
+  left: var(--margem);
+  top: -6rem;
+  z-index: 300;
+  background: var(--tinta);
+  color: var(--papel);
+  padding: .75rem 1.25rem;
+  font-size: var(--t-menor);
+  transition: top var(--t-rapida);
+}
+
+.pular-link:focus { top: 1rem; }
+
+.so-leitor {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* -------------------------------------------------------------------------
+   8. MARCA
+   Lockup tipográfico do logotipo: anel-lente + ÓPTICA/RELOJOARIA + SÉPYA.
+   Substituir por assets/img/logo.svg quando a loja enviar o arquivo oficial.
+   ------------------------------------------------------------------------- */
+.marca {
+  display: inline-flex;
+  align-items: center;
+  gap: .7rem;
+  flex: none;
+}
+
+.marca__anel { width: 2.1rem; height: 2.1rem; flex: none; }
+.marca__anel circle { transition: stroke-dashoffset var(--t-lenta); }
+
+.marca__texto { display: grid; gap: .18rem; line-height: 1; }
+
+.marca__sobre {
+  font-size: .5rem;
+  font-weight: 600;
+  letter-spacing: .34em;
+  text-transform: uppercase;
+  color: var(--tinta-fraca);
+}
+
+.marca__nome {
+  font-size: 1.28rem;
+  font-weight: 700;
+  letter-spacing: .01em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.marca--claro .marca__sobre { color: rgba(239, 234, 225, .6); }
+.marca--claro .marca__nome  { color: var(--papel); }
+.marca--grande .marca__anel { width: 3rem; height: 3rem; }
+.marca--grande .marca__nome { font-size: 1.9rem; }
+.marca--grande .marca__sobre { font-size: .58rem; }
+
+/* -------------------------------------------------------------------------
+   9. CABEÇALHO
+   ------------------------------------------------------------------------- */
+.cabecalho {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: color-mix(in srgb, var(--papel) 88%, transparent);
+  backdrop-filter: saturate(1.4) blur(12px);
+  -webkit-backdrop-filter: saturate(1.4) blur(12px);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--t-media), background-color var(--t-media);
+}
+
+.cabecalho.esta-preso {
+  border-bottom-color: var(--linha);
+  background: color-mix(in srgb, var(--papel-alto) 92%, transparent);
+}
+
+.cabecalho__interno {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--e-5);
+  height: 4.5rem;
+  transition: height var(--t-media);
+}
+
+.cabecalho.esta-preso .cabecalho__interno { height: 4rem; }
+
+.nav { display: none; }
+
+@media (min-width: 1080px) {
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: clamp(1.1rem, 2vw, 2rem);
+  }
+}
+
+.nav__link {
+  font-size: var(--t-menor);
+  font-weight: 500;
+  letter-spacing: .01em;
+  position: relative;
+  padding-block: .35rem;
+  color: var(--tinta-media);
+  transition: color var(--t-rapida);
+}
+
+.nav__link::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 1px;
+  background: var(--laranja);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--t-media);
+}
+
+.nav__link:hover { color: var(--tinta); }
+.nav__link:hover::after,
+.nav__link[aria-current="true"]::after { transform: scaleX(1); }
+.nav__link[aria-current="true"] { color: var(--tinta); }
+
+.cabecalho__acoes { display: flex; align-items: center; gap: var(--e-3); }
+.cabecalho__acoes .botao--principal { display: none; }
+
+@media (min-width: 640px) {
+  .cabecalho__acoes .botao--principal { display: inline-flex; }
+}
+
+/* Botão sanduíche */
+.sanduiche {
+  width: 2.75rem;
+  height: 2.75rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--linha-forte);
+  border-radius: var(--r-1);
+  transition: border-color var(--t-rapida), background-color var(--t-rapida);
+}
+
+.sanduiche:hover { border-color: var(--tinta); }
+
+@media (min-width: 1080px) { .sanduiche { display: none; } }
+
+.sanduiche__barras { display: grid; gap: 5px; width: 1.05rem; }
+.sanduiche__barras span {
+  height: 1.5px;
+  background: var(--tinta);
+  transition: transform var(--t-media), opacity var(--t-rapida);
+}
+
+.sanduiche[aria-expanded="true"] .sanduiche__barras span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.sanduiche[aria-expanded="true"] .sanduiche__barras span:nth-child(2) { opacity: 0; }
+.sanduiche[aria-expanded="true"] .sanduiche__barras span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* Menu mobile */
+.menu {
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  background: var(--papel-alto);
+  padding: 6rem var(--margem) var(--margem);
+  display: grid;
+  align-content: space-between;
+  gap: var(--e-7);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-1.5rem);
+  transition: opacity var(--t-media), transform var(--t-media), visibility var(--t-media);
+}
+
+.menu.esta-aberto { opacity: 1; visibility: visible; transform: none; }
+.menu[inert] { pointer-events: none; }
+
+@media (min-width: 1080px) { .menu { display: none; } }
+
+.menu__lista { display: grid; }
+
+.menu__lista a {
+  font-family: var(--fonte-titulo);
+  font-variation-settings: "SOFT" 20, "WONK" 1, "opsz" 90;
+  font-size: clamp(1.65rem, 6.5vw, 2.4rem);
+  letter-spacing: -.02em;
+  padding-block: .55rem;
+  border-bottom: 1px solid var(--linha);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--e-4);
+}
+
+.menu__lista a span { font-family: var(--fonte-texto); font-size: var(--t-rotulo); letter-spacing: .16em; color: var(--tinta-fraca); }
+.menu__lista a:hover { color: var(--laranja); }
+
+.menu__pe { display: grid; gap: var(--e-4); }
+.menu__pe .botao { width: 100%; }
+
+/* -------------------------------------------------------------------------
+   10. HERO
+   ------------------------------------------------------------------------- */
+.hero { padding-top: clamp(2.5rem, 5vw, 4.5rem); padding-bottom: 0; }
+
+.hero__grade {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4rem);
+  align-items: end;
+}
+
+@media (min-width: 860px) {
+  .hero__grade {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr);
+    gap: clamp(2rem, 5vw, 5rem);
+  }
+}
+
+.hero__texto { display: grid; gap: var(--e-5); align-content: end; }
+.hero__titulo { max-width: 15ch; }
+
+.hero__acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--e-3);
+  margin-top: var(--e-2);
+}
+
+/* No celular os dois CTAs ocupam a largura toda — alvo de toque maior
+   e nenhum degrau de larguras diferentes. */
+@media (max-width: 479px) {
+  .hero__acoes .botao { flex: 1 1 100%; }
+}
+
+/* Coluna da fotografia com o anel-lente atrás */
+.hero__midia { position: relative; }
+
+.hero__midia::before {
+  content: "";
+  position: absolute;
+  inset: auto auto -7% -14%;
+  width: 46%;
+  aspect-ratio: 1;
+  border: 1px solid var(--laranja);
+  border-radius: var(--r-lente);
+  opacity: .55;
+  z-index: 0;
+  pointer-events: none;
+}
+
+@media (max-width: 859px) { .hero__midia::before { display: none; } }
+
+.hero__foto { position: relative; z-index: 1; }
+
+/* Ficha técnica — o motivo da receita óptica */
+.ficha {
+  margin-top: clamp(3rem, 6vw, 5rem);
+  border-top: 1px solid var(--linha);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (min-width: 860px) {
+  .ficha { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+.ficha__item {
+  padding: var(--e-5) var(--e-4) var(--e-5) 0;
+  border-bottom: 1px solid var(--linha);
+  display: grid;
+  gap: .35rem;
+  align-content: start;
+}
+
+@media (min-width: 860px) {
+  .ficha__item { border-bottom: 0; padding-right: var(--e-6); }
+  .ficha__item + .ficha__item { border-left: 1px solid var(--linha); padding-left: var(--e-6); }
+}
+
+.ficha__valor {
+  font-family: var(--fonte-titulo);
+  font-variation-settings: "SOFT" 20, "WONK" 1, "opsz" 60;
+  font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+  line-height: 1;
+  letter-spacing: -.02em;
+}
+
+.ficha__rotulo {
+  font-size: var(--t-rotulo);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--tinta-fraca);
+}
+
+/* -------------------------------------------------------------------------
+   11. CATEGORIAS — composição assimétrica
+   ------------------------------------------------------------------------- */
+.categorias__grade { display: grid; gap: clamp(2.5rem, 5vw, 3.5rem); }
+
+@media (min-width: 860px) {
+  .categorias__grade {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 3vw, 2.5rem);
+    align-items: start;
+  }
+  .categoria--oculos    { grid-column: 1 / span 6;  grid-row: 1 / span 2; }
+  .categoria--relogios  { grid-column: 8 / span 5;  grid-row: 1; }
+  .categoria--semijoias { grid-column: 7 / span 5;  grid-row: 2; margin-top: clamp(2rem, 4vw, 4rem); }
+}
+
+@media (min-width: 1080px) {
+  .categoria--oculos    { grid-column: 1 / span 5; }
+  .categoria--relogios  { grid-column: 7 / span 6; }
+  .categoria--semijoias { grid-column: 7 / span 4; }
+}
+
+/* Óculos é a categoria principal: a foto estica para ocupar as duas linhas
+   da direita, o que fecha o vazio da coluna e sustenta a assimetria. */
+@media (min-width: 860px) {
+  .categoria--oculos {
+    align-self: stretch;
+    grid-template-rows: minmax(0, 1fr) auto auto auto;
+  }
+  .categoria--oculos > .foto {
+    aspect-ratio: auto;
+    height: 100%;
+    min-height: 26rem;
+  }
+}
+
+.categoria { display: grid; gap: var(--e-4); }
+.categoria .foto img:hover,
+.categoria:hover .foto img { transform: scale(1.035); }
+
+.categoria__cabeca {
+  display: flex;
+  align-items: baseline;
+  gap: var(--e-3);
+  justify-content: space-between;
+  border-bottom: 1px solid var(--linha);
+  padding-bottom: var(--e-3);
+}
+
+.categoria__nome {
+  font-family: var(--fonte-titulo);
+  font-variation-settings: "SOFT" 20, "WONK" 1, "opsz" 72;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  line-height: 1;
+  letter-spacing: -.02em;
+}
+
+.categoria__texto { color: var(--tinta-media); font-size: var(--t-menor); max-width: 40ch; }
+.categoria__lista {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem .5rem;
+  font-size: var(--t-rotulo);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--tinta-fraca);
+}
+.categoria__lista li + li::before { content: "· "; color: var(--laranja); }
+
+/* -------------------------------------------------------------------------
+   12. VITRINE (destaques)
+   ------------------------------------------------------------------------- */
+.vitrine__grade { display: grid; gap: clamp(1.25rem, 2.5vw, 2rem); }
+
+@media (min-width: 860px) {
+  .vitrine__grade {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-auto-flow: dense;
+  }
+  .vitrine__item--amplo    { grid-column: 1 / span 8; }
+  .vitrine__item--alto     { grid-column: 9 / span 4; }
+  .vitrine__item--meio     { grid-column: 1 / span 4; }
+  .vitrine__item--meio-b   { grid-column: 5 / span 4; }
+  .vitrine__item--nota     { grid-column: 9 / span 4; align-self: end; }
+}
+
+.vitrine__item { display: grid; gap: var(--e-3); }
+.vitrine__item .foto img { transition: transform var(--t-lenta); }
+.vitrine__item:hover .foto img { transform: scale(1.03); }
+
+.vitrine__legenda {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--e-4);
+  font-size: var(--t-menor);
+  color: var(--tinta-media);
+  border-top: 1px solid var(--linha);
+  padding-top: var(--e-3);
+}
+
+.vitrine__legenda strong { font-weight: 600; color: var(--tinta); }
+
+.vitrine__nota {
+  border: 1px solid var(--linha);
+  padding: var(--e-5);
+  display: grid;
+  gap: var(--e-4);
+  align-content: center;
+  min-height: 100%;
+}
+
+/* -------------------------------------------------------------------------
+   13. SEÇÃO ESCURA — lentes e serviços (quebra de ritmo)
+   ------------------------------------------------------------------------- */
+.escuro { background: var(--tinta); color: var(--papel); }
+.escuro .lead, .escuro .texto { color: rgba(239, 234, 225, .72); }
+.escuro .fio { background: var(--linha-clara); }
+.escuro .foto { background: #241E19; }
+
+.servicos__grade { display: grid; gap: clamp(2.5rem, 5vw, 4rem); }
+
+@media (min-width: 860px) {
+  .servicos__grade {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: clamp(2.5rem, 5vw, 5rem);
+    align-items: start;
+  }
+}
+
+.servicos__midia { position: relative; }
+.servicos__texto { display: grid; gap: var(--e-5); }
+
+.servicos__lista { border-top: 1px solid var(--linha-clara); }
+
+.servicos__item {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr);
+  gap: var(--e-4);
+  padding-block: var(--e-4);
+  border-bottom: 1px solid var(--linha-clara);
+  align-items: baseline;
+}
+
+@media (min-width: 640px) {
+  .servicos__item { grid-template-columns: 3.5rem minmax(0, 1fr) auto; }
+}
+
+.servicos__def { display: grid; gap: .3rem; }
+
+.servicos__def h3 {
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  font-weight: 500;
+  letter-spacing: -.01em;
+  line-height: 1.25;
+}
+
+.servicos__def p { color: rgba(239, 234, 225, .6); font-size: var(--t-menor); line-height: 1.5; }
+
+.servicos__marca {
+  font-size: var(--t-rotulo);
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--laranja);
+  white-space: nowrap;
+}
+
+/* -------------------------------------------------------------------------
+   14. SOBRE
+   ------------------------------------------------------------------------- */
+.sobre__grade { display: grid; gap: clamp(2.5rem, 5vw, 4rem); }
+
+@media (min-width: 860px) {
+  .sobre__grade {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    align-items: start;
+    gap: clamp(2rem, 4vw, 4rem);
+  }
+  .sobre__midia    { grid-column: 1 / span 5; }
+  .sobre__conteudo { grid-column: 7 / span 6; padding-top: clamp(1rem, 4vw, 3.5rem); }
+}
+
+.sobre__midia { display: grid; gap: var(--e-4); }
+
+.sobre__detalhe {
+  width: 58%;
+  margin-left: auto;
+  margin-top: -22%;
+  position: relative;
+  z-index: 2;
+  border: 6px solid var(--papel);
+}
+
+.sobre__conteudo { display: grid; gap: var(--e-5); }
+
+/* Numeral gigante 1983 como ornamento */
+.ano {
+  font-family: var(--fonte-titulo);
+  font-variation-settings: "SOFT" 0, "WONK" 0, "opsz" 144;
+  font-size: clamp(4.5rem, 13vw, 11rem);
+  line-height: .82;
+  letter-spacing: -.05em;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--linha-forte);
+  display: block;
+}
+
+.sobre__aviso {
+  border-left: 2px solid var(--laranja);
+  padding-left: var(--e-4);
+  font-size: var(--t-menor);
+  color: var(--tinta-fraca);
+  max-width: 52ch;
+}
+
+/* -------------------------------------------------------------------------
+   15. EXPERIÊNCIA — lista numerada, sem ícones
+   ------------------------------------------------------------------------- */
+.experiencia__lista { border-top: 1px solid var(--linha); }
+
+.experiencia__item {
+  display: grid;
+  gap: var(--e-2) var(--e-5);
+  padding-block: clamp(1.5rem, 3vw, 2.25rem);
+  border-bottom: 1px solid var(--linha);
+  transition: background-color var(--t-media);
+}
+
+@media (min-width: 860px) {
+  .experiencia__item {
+    grid-template-columns: 5rem minmax(0, 5fr) minmax(0, 6fr);
+    align-items: start;
+  }
+}
+
+.experiencia__item:hover { background: rgba(238, 118, 35, .045); }
+
+.experiencia__num {
+  font-size: var(--t-rotulo);
+  font-weight: 600;
+  letter-spacing: .16em;
+  color: var(--laranja);
+  font-variant-numeric: tabular-nums;
+  padding-top: .5rem;
+}
+
+.experiencia__titulo {
+  font-family: var(--fonte-titulo);
+  font-variation-settings: "SOFT" 20, "WONK" 1, "opsz" 60;
+  font-size: clamp(1.25rem, 2.2vw, 1.7rem);
+  line-height: 1.14;
+  letter-spacing: -.02em;
+}
+
+/* -------------------------------------------------------------------------
+   16. INSTAGRAM
+   ------------------------------------------------------------------------- */
+.instagram__grade {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(.5rem, 1.2vw, 1rem);
+}
+
+@media (min-width: 640px) { .instagram__grade { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 1080px) { .instagram__grade { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+
+.instagram__item { position: relative; display: block; }
+.instagram__item .foto img { transition: transform var(--t-lenta), opacity var(--t-media); }
+.instagram__item:hover .foto img { transform: scale(1.05); opacity: .88; }
+
+.instagram__rodape {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--e-4);
+  margin-top: var(--e-5);
+  padding-top: var(--e-4);
+  border-top: 1px solid var(--linha);
+}
+
+/* -------------------------------------------------------------------------
+   17. LOJAS E CONTATO
+   ------------------------------------------------------------------------- */
+.lojas__grade { display: grid; gap: clamp(2rem, 4vw, 3rem); }
+
+@media (min-width: 860px) {
+  .lojas__grade { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(2rem, 4vw, 4rem); }
+}
+
+.loja {
+  display: grid;
+  gap: var(--e-4);
+  align-content: start;
+  border-top: 2px solid var(--tinta);
+  padding-top: var(--e-5);
+}
+
+.loja__nome {
+  font-family: var(--fonte-titulo);
+  font-variation-settings: "SOFT" 20, "WONK" 1, "opsz" 72;
+  font-size: clamp(1.4rem, 2.6vw, 2rem);
+  line-height: 1.1;
+  letter-spacing: -.02em;
+}
+
+.loja__endereco { font-size: var(--t-lead); line-height: 1.5; }
+.loja__bairro { color: var(--tinta-media); }
+
+.loja__dados { display: grid; gap: 0; border-top: 1px solid var(--linha); }
+
+.loja__dado {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr);
+  gap: var(--e-4);
+  padding-block: .8rem;
+  border-bottom: 1px solid var(--linha);
+  font-size: var(--t-menor);
+  align-items: baseline;
+}
+
+.loja__dado dt {
+  font-size: var(--t-rotulo);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--tinta-fraca);
+}
+
+.loja__dado dd a:hover { color: var(--laranja); }
+
+/* Estado de dado ainda não fornecido pela loja */
+.a-preencher {
+  color: var(--tinta-fraca);
+  font-style: italic;
+}
+
+.a-preencher::before {
+  content: "";
+  display: inline-block;
+  width: .4rem;
+  height: .4rem;
+  margin-right: .5rem;
+  border-radius: var(--r-lente);
+  background: var(--laranja);
+  opacity: .55;
+  vertical-align: middle;
+}
+
+.loja__acoes { display: flex; flex-wrap: wrap; gap: var(--e-3); }
+.lojas__mapa { margin-top: clamp(2.5rem, 5vw, 4rem); }
+
+/* -------------------------------------------------------------------------
+   18. CHAMADA FINAL
+   ------------------------------------------------------------------------- */
+.chamada { background: var(--laranja); color: #fff; }
+
+.chamada__grade {
+  display: grid;
+  gap: var(--e-6);
+  align-items: end;
+}
+
+@media (min-width: 860px) {
+  .chamada__grade { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--e-8); }
+}
+
+.chamada .titulo { color: #fff; }
+.chamada .titulo em { color: var(--tinta); font-style: italic; }
+.chamada__apoio { color: rgba(255, 255, 255, .88); max-width: 44ch; margin-bottom: var(--e-5); }
+.chamada__acoes { display: flex; flex-wrap: wrap; gap: var(--e-3); }
+.chamada .rotulo { color: rgba(255, 255, 255, .75); }
+.chamada .rotulo::before { background: rgba(255, 255, 255, .6); }
+
+/* -------------------------------------------------------------------------
+   19. RODAPÉ
+   ------------------------------------------------------------------------- */
+.rodape { background: var(--tinta); color: var(--papel); padding-block: clamp(3rem, 6vw, 5rem) var(--e-6); }
+
+.rodape__topo {
+  display: grid;
+  gap: var(--e-6);
+  padding-bottom: var(--e-6);
+  border-bottom: 1px solid var(--linha-clara);
+}
+
+@media (min-width: 860px) {
+  .rodape__topo { grid-template-columns: minmax(0, 5fr) repeat(2, minmax(0, 3fr)); gap: var(--e-8); }
+}
+
+.rodape__col { display: grid; gap: var(--e-3); align-content: start; }
+.rodape__col h3 {
+  font-size: var(--t-rotulo);
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(239, 234, 225, .58);
+  margin-bottom: var(--e-2);
+}
+
+.rodape__col a, .rodape__col p { font-size: var(--t-menor); color: rgba(239, 234, 225, .78); }
+.rodape__resumo { margin-top: var(--e-4); max-width: 34ch; }
+.rodape .a-preencher { color: rgba(239, 234, 225, .58); }
+.rodape__col a:hover { color: var(--laranja); }
+
+.rodape__base {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--e-4);
+  justify-content: space-between;
+  padding-top: var(--e-5);
+  font-size: var(--t-rotulo);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(239, 234, 225, .58);
+}
+
+/* -------------------------------------------------------------------------
+   20. WHATSAPP FLUTUANTE + BARRA MOBILE
+   ------------------------------------------------------------------------- */
+.zap-flutuante {
+  position: fixed;
+  right: clamp(1rem, 2.5vw, 2rem);
+  bottom: clamp(1rem, 2.5vw, 2rem);
+  z-index: 90;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: var(--r-lente);
+  background: var(--laranja);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  box-shadow: var(--sombra-flutuante);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(1rem) scale(.9);
+  transition: opacity var(--t-media), transform var(--t-media), visibility var(--t-media), background-color var(--t-rapida);
+}
+
+.zap-flutuante.esta-visivel { opacity: 1; visibility: visible; transform: none; }
+.zap-flutuante:hover { background: var(--laranja-escuro); }
+.zap-flutuante svg { width: 1.55rem; height: 1.55rem; }
+
+@media (max-width: 639px) {
+  .zap-flutuante { display: none; }
+}
+
+.barra-mobile {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 90;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--papel-alto);
+  border-top: 1px solid var(--linha);
+  transform: translateY(100%);
+  transition: transform var(--t-media);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.barra-mobile.esta-visivel { transform: none; }
+
+@media (min-width: 640px) { .barra-mobile { display: none; } }
+
+.barra-mobile a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  padding: 1rem .5rem;
+  font-size: var(--t-menor);
+  font-weight: 600;
+}
+
+.barra-mobile a + a { border-left: 1px solid var(--linha); }
+.barra-mobile a:first-child { background: var(--laranja); color: #fff; }
+.barra-mobile svg { width: 1.05rem; height: 1.05rem; }
+
+/* Folga para a barra fixa não cobrir o fim do rodapé. */
+@media (max-width: 639px) {
+  .rodape { padding-bottom: 5.5rem; }
+}
+
+/* -------------------------------------------------------------------------
+   21. REVELAÇÃO NO SCROLL
+   ------------------------------------------------------------------------- */
+.revela {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity var(--t-lenta), transform var(--t-lenta);
+}
+
+.revela.revelou { opacity: 1; transform: none; }
+.revela[data-atraso="1"] { transition-delay: 90ms; }
+.revela[data-atraso="2"] { transition-delay: 180ms; }
+.revela[data-atraso="3"] { transition-delay: 270ms; }
+.revela[data-atraso="4"] { transition-delay: 360ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .revela { opacity: 1; transform: none; }
+}
+
+/* -------------------------------------------------------------------------
+   22. IMPRESSÃO
+   ------------------------------------------------------------------------- */
+@media print {
+  .cabecalho, .menu, .zap-flutuante, .barra-mobile, .chamada { display: none; }
+  body { background: #fff; color: #000; }
+  .revela { opacity: 1; transform: none; }
+}

@@ -1,0 +1,4 @@
+# Prévia para apresentação — ainda não é o site oficial da Óptica Sépya.
+# Remover este arquivo quando o site entrar no ar de verdade.
+User-agent: *
+Disallow: /

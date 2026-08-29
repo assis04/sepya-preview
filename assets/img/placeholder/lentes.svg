@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="Espaco reservado para fotografia: LENTES">
+  <rect width="1200" height="900" fill="#E7E1D6"/>
+  <g fill="none" stroke="#14100D" stroke-opacity=".13" stroke-width="2">
+    <path d="M0 450 H1200 M600 0 V900"/>
+  </g>
+  <g fill="none" stroke="#14100D" stroke-opacity=".35" stroke-width="3">
+    <path d="M56 22 V56 H22 M1144 22 V56 H1178 M56 878 V844 H22 M1144 878 V844 H1178"/>
+  </g>
+  <circle cx="600" cy="450" r="150" fill="none" stroke="#EE7623" stroke-width="4"/>
+  <circle cx="600" cy="450" r="138" fill="none" stroke="#EE7623" stroke-opacity=".35" stroke-width="2"/>
+  <text x="600" y="654" text-anchor="middle" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="30" font-weight="600" letter-spacing="5" fill="#14100D">LENTES</text>
+  <text x="600" y="689" text-anchor="middle" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="21" letter-spacing="0" fill="#14100D" fill-opacity=".55">Bancada, lentes ZEISS ou medicao</text>
+  <text x="56" y="844" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="18" letter-spacing="2" fill="#14100D" fill-opacity=".4">SEPYA / 1200 x 900</text>
+</svg>

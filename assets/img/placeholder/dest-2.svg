@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1125" role="img" aria-label="Espaco reservado para fotografia: DESTAQUE VERTICAL">
+  <rect width="900" height="1125" fill="#E7E1D6"/>
+  <g fill="none" stroke="#14100D" stroke-opacity=".13" stroke-width="2">
+    <path d="M0 562 H900 M450 0 V1125"/>
+  </g>
+  <g fill="none" stroke="#14100D" stroke-opacity=".35" stroke-width="3">
+    <path d="M56 22 V56 H22 M844 22 V56 H878 M56 1103 V1069 H22 M844 1103 V1069 H878"/>
+  </g>
+  <circle cx="450" cy="562" r="150" fill="none" stroke="#EE7623" stroke-width="4"/>
+  <circle cx="450" cy="562" r="138" fill="none" stroke="#EE7623" stroke-opacity=".35" stroke-width="2"/>
+  <text x="450" y="766" text-anchor="middle" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="30" font-weight="600" letter-spacing="5" fill="#14100D">DESTAQUE VERTICAL</text>
+  <text x="450" y="801" text-anchor="middle" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="21" letter-spacing="0" fill="#14100D" fill-opacity=".55">Detalhe de armacao ou solar</text>
+  <text x="56" y="1069" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="18" letter-spacing="2" fill="#14100D" fill-opacity=".4">SEPYA / 900 x 1125</text>
+</svg>

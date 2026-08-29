@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Espaco reservado para fotografia: OPEN GRAPH">
+  <rect width="1200" height="630" fill="#E7E1D6"/>
+  <g fill="none" stroke="#14100D" stroke-opacity=".13" stroke-width="1">
+    <path d="M0 315 H1200 M600 0 V630"/>
+  </g>
+  <g fill="none" stroke="#14100D" stroke-opacity=".35" stroke-width="2">
+    <path d="M39 15 V39 H15 M1161 15 V39 H1185 M39 615 V591 H15 M1161 615 V591 H1185"/>
+  </g>
+  <circle cx="600" cy="315" r="105" fill="none" stroke="#EE7623" stroke-width="3"/>
+  <circle cx="600" cy="315" r="97" fill="none" stroke="#EE7623" stroke-opacity=".35" stroke-width="1"/>
+  <text x="600" y="457" text-anchor="middle" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="21" font-weight="600" letter-spacing="3" fill="#14100D">OPEN GRAPH</text>
+  <text x="600" y="480" text-anchor="middle" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="14" letter-spacing="0" fill="#14100D" fill-opacity=".55">Imagem de compartilhamento 1200x630</text>
+  <text x="39" y="591" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="12" letter-spacing="1" fill="#14100D" fill-opacity=".4">SEPYA / 1200 x 630</text>
+</svg>

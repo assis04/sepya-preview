@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" role="img" aria-label="Espaco reservado para fotografia: SEMI-JOIAS">
+  <rect width="1000" height="1000" fill="#E7E1D6"/>
+  <g fill="none" stroke="#14100D" stroke-opacity=".13" stroke-width="2">
+    <path d="M0 500 H1000 M500 0 V1000"/>
+  </g>
+  <g fill="none" stroke="#14100D" stroke-opacity=".35" stroke-width="3">
+    <path d="M62 25 V62 H25 M938 25 V62 H975 M62 975 V938 H25 M938 975 V938 H975"/>
+  </g>
+  <circle cx="500" cy="500" r="166" fill="none" stroke="#EE7623" stroke-width="4"/>
+  <circle cx="500" cy="500" r="153" fill="none" stroke="#EE7623" stroke-opacity=".35" stroke-width="2"/>
+  <text x="500" y="725" text-anchor="middle" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="33" font-weight="600" letter-spacing="5" fill="#14100D">SEMI-JOIAS</text>
+  <text x="500" y="764" text-anchor="middle" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="23" letter-spacing="0" fill="#14100D" fill-opacity=".55">Correntes, aneis e braceletes folheados</text>
+  <text x="62" y="938" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="19" letter-spacing="2" fill="#14100D" fill-opacity=".4">SEPYA / 1000 x 1000</text>
+</svg>
